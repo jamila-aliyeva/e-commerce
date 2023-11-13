@@ -12,7 +12,7 @@ export async function generateMetadata({
   const { data } = await request.get<AllCategoryType>(`category/${categoryId}`);
 
   return {
-    title: data.name,
+    title: data?.name,
     description: data.name,
   };
 }

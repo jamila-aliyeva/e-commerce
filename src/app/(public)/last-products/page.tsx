@@ -74,7 +74,6 @@ const LastProducts = () => {
           <button>Barchasi 👉</button>
         </Link>
       </div>
-      {/* <div className="hero__bside"> */}
       {loading ? (
         <div>
           <h2>Loading....</h2>
@@ -90,16 +89,22 @@ const LastProducts = () => {
                 objectFit="cover"
               />
             </div>
-            <Link
-              href={`/allproducts/${product?._id}`}
-              className="last__content">
+            <Link href={`/category/${product?._id}`} className="last__content">
               <h3>{product?.title}</h3>
               <p>Miqdori: {product?.quantity}</p>
               <p>Narxi: {product?.price} sum</p>
             </Link>
             <div className="button__wrapper">
               <button
-                onClick={() => addToCart(product?._id)}
+                onClick={() =>
+                  addToCart(
+                    product?._id,
+                    product?.image.url,
+                    product?.title,
+                    product?.description,
+                    product?.price
+                  )
+                }
                 className="product__btn">
                 cartga qo'shish
               </button>

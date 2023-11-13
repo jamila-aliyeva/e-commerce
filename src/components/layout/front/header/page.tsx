@@ -11,6 +11,8 @@ import "./style.scss";
 import { Montserrat } from "next/font/google";
 import useAuth from "@/store/auth";
 import { TOKEN, USER_DATA_STATE } from "@/constants";
+import { Badge } from "@mui/material";
+import useCart from "@/store/cards";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 function Header() {
@@ -21,6 +23,8 @@ function Header() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  const { cart } = useCart();
 
   useEffect(() => {
     document.body.classList.add("hiddin");
@@ -59,7 +63,15 @@ function Header() {
               Home
             </NavLink> */}
             <NavLink onClick={() => setMenuOpen(false)} href={"/allproducts"}>
-              Barcha Mahsulotlar
+              Mahsulotlar
+            </NavLink>
+            <NavLink onClick={() => setMenuOpen(false)} href={"/cart"}>
+              <Badge badgeContent={cart.length} color="primary">
+                Savatcha
+              </Badge>
+            </NavLink>
+            <NavLink onClick={() => setMenuOpen(false)} href={"/favourite"}>
+              Sevimlilar
             </NavLink>
             <NavLink onClick={() => setMenuOpen(false)} href={"/about"}>
               Haqida

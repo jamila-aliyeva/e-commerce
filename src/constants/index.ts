@@ -3,6 +3,6 @@ const TOKEN: string = "token";
 const USER: string = "user";
 const USER_STATE: string = "user-state";
 const USER_DATA_STATE: string = "user-data-state";
-const USER_ID: string = "user-id";
+const USER_ID: string = "user-id";const CART = "CART";
 const LIMIT: number = 10;
-export { ENDPOINT, TOKEN, USER, USER_STATE, USER_DATA_STATE, USER_ID, LIMIT };
+export { ENDPOINT, TOKEN, USER, USER_STATE, USER_DATA_STATE, USER_ID, LIMIT, CART };

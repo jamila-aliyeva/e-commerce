@@ -1,4 +1,5 @@
 export default interface PaginationDataTypes {
+  quantity: number;
   next: number;
   limit: number;
   page: number;
@@ -6,6 +7,10 @@ export default interface PaginationDataTypes {
 }
 
 interface CartType {
-  product: string;
+  id: string;
+  image: string;
+  title: string;
+  description: string;
   quantity: number;
+  price: number;
 }

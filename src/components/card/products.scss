@@ -1,15 +1,16 @@
-
-
 .product__img {
     padding: 24px;
     position: relative;
     height: 300px;
     max-width: 400px;
-  
     img {
       width: 100%;
-  
     }
+   
+  }
+  .product__fav{
+    background-color: red;
+    width: 100px;
   }
   
   .product__border {
