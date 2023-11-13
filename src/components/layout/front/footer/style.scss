@@ -1,0 +1,27 @@
+.footer__wrapper{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  .footer__bside{
+    a{
+        margin-right: 20px;
+        color: black;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+  }
+}
+.footer-aspect{
+    padding: 30px;
+    text-align: center;
+}
+@media (max-width:640px ){
+    .footer__wrapper{
+        flex-direction: column;
+        .footer__bside{
+            margin-top: 40px;
+        }
+    }
+}
