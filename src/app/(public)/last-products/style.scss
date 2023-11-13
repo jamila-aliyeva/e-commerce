@@ -1,4 +1,9 @@
 
+.product__title{
+  display: none;
+  margin-block: 30px;
+  text-align: center;
+}
 
 .last__img{
   padding: 24px;
@@ -71,4 +76,20 @@
 .nav__login {
   display: flex;
   justify-content: center;
+}
+@media (max-width: 540px){
+  .product__title{
+    display: block;
+  }
+  .hero__aside{
+    h1{
+      display: none !important;
+    }
+    p{
+      display: none !important;
+    }
+    button{
+      display: none !important;
+    }
+  }
 }
