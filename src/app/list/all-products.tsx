@@ -93,7 +93,12 @@ const AllproductsList = () => {
           <ProductsCard key={product._id} {...product} />
         ))}
       </div>
-      <div className="pagination">
+      <div
+        style={{
+          textAlign: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}>
         {total / LIMIT > 1 ? (
           <Pagination
             count={Math.ceil(total / LIMIT)}
