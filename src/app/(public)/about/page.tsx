@@ -1,5 +1,10 @@
+import { Metadata } from "next";
 import "./style.scss";
 
+export const metadata: Metadata = {
+  title: "Vodiy Parfum | Haqida",
+  description: "Lorem ipusum ....",
+};
 const AboutPage = () => {
   return (
     <section>
