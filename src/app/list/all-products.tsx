@@ -1,15 +1,13 @@
 "use client";
 
 import ProductsCard from "@/components/card/productsCard";
-import useAllProducts from "@/store/allproducts";
 import { useEffect, useState } from "react";
 
 import "./style.scss";
 import AllProductsType from "@/types/all-products";
 import request from "@/server";
 import { LIMIT } from "@/constants";
-import Link from "next/link";
-import Image from "next/image";
+import { Pagination } from "@mui/material";
 
 interface Types {
   limit: number;
@@ -25,6 +23,11 @@ const AllproductsList = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(1);
   const [page, setPage] = useState(1);
+
+  const controlPages = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    console.log(value);
+  };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -89,6 +92,16 @@ const AllproductsList = () => {
         {products?.map((product: AllProductsType) => (
           <ProductsCard key={product._id} {...product} />
         ))}
+      </div>
+      <div className="pagination">
+        {total / LIMIT > 1 ? (
+          <Pagination
+            count={Math.ceil(total / LIMIT)}
+            page={page}
+            onChange={(event, value) => controlPages(event, value)}
+            boundaryCount={2}
+          />
+        ) : null}
       </div>
     </>
   );
