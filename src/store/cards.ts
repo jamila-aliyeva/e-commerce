@@ -1,10 +1,10 @@
 "use client";
+
 import { CART } from "@/constants";
 import request from "@/server";
-import PaginationDataTypes from "@/types";
+import { create } from "zustand";
 import CartType from "@/types";
 import AllCategoryType from "@/types/all-categories";
-import { create } from "zustand";
 
 interface LatestType {
   loading: boolean;
@@ -53,9 +53,9 @@ const useCart = create<LatestType>()((set, get) => ({
       price,
       quantity: 1,
     };
-    const newCart: PaginationDataTypes[] = [...cart, values];
-    set({ cart: newCart });
-    localStorage.setItem(CART, JSON.stringify(newCart));
+    cart.push(values);
+    set({ cart });
+    localStorage.setItem(CART, JSON.stringify(cart));
   },
   setCart: (newCart: CartType[]) => {
     set({ cart: newCart });

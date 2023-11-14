@@ -4,4 +4,6 @@ export default interface AllCategoryType {
   image: {
     url: string;
   };
+  createdAt: string;
+  updatedAt: string;
 }

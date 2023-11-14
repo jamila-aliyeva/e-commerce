@@ -6,7 +6,7 @@ export default interface PaginationDataTypes {
   total: number;
 }
 
-interface CartType {
+export default interface CartType {
   id: string;
   image: string;
   title: string;
