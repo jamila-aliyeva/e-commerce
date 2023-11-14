@@ -1,0 +1,36 @@
+.cart__row{
+    display: grid;
+    column-gap: 50px;
+    grid-template-columns: repeat(3, 1fr);
+}
+.fav__card{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .fav__card {
+    margin-block: 30px;
+    border-radius: 15px;
+    background-color: rgb(183, 183, 183);
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .fav__image {
+    padding: 24px;
+    position: relative;
+    height: 300px;
+    max-width: 400px;
+    img {
+      width: 100%;
+    }
+   
+  }
+  .fav__content{
+    p::first-letter {
+      text-transform:capitalize;
+  }
+  padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    color: #000;
+  }

@@ -35,9 +35,6 @@
   }
 }
 
-.added{
-  background-color: red;
-}
 
 .last_products{
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -60,6 +57,7 @@
 }
 
 .product__btn {
+  margin-bottom: 0px !important;
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -71,6 +69,15 @@
 }
 .button__wrapper{
   padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .fav-cart{
+    padding: 8px;
+    border-radius: 5px;
+    border:  2px solid grey;
+    cursor: pointer;
+  }
 }
 
 .nav__login {

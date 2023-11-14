@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import "./products.scss";
 import useCart from "@/store/cards";
+import useFavaurite from "@/store/favaurite";
 
 const ProductsCard = ({
   sold,
@@ -13,20 +14,26 @@ const ProductsCard = ({
   description,
   image,
 }) => {
+  const { cart, Liked } = useFavaurite();
   const { addToCart } = useCart();
+
+  const inFavaurite = (productId: string) => {
+    return cart.some((cartProduct) => cartProduct.id === productId);
+  };
+
   return (
     <div className="product__border" key={_id}>
       <div className="products__card">
         <div className="product__img">
           <Image src={image.url} alt={title} fill objectFit="cover" />
         </div>
-        <Link href={`/allproducts/${_id}`} className="product__content">
+        <div className="product__content">
           <h3>{title}</h3>
           <h4>Sotildi:{sold}</h4>
           <p>{description}</p>
           <p>Miqdori: {quantity}</p>
           <p>Narxi: {price} sum</p>
-        </Link>
+        </div>
         <div className="button__wrapper">
           <button
             onClick={() =>
@@ -42,6 +49,11 @@ const ProductsCard = ({
             }
             className="product__btn">
             cartga qo'shish
+          </button>
+          <button
+            onClick={() => Liked(_id, image.url, title, description, price)}
+            className="fav-cart ">
+            💟
           </button>
         </div>
       </div>

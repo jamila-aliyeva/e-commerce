@@ -14,3 +14,12 @@ export default interface CartType {
   quantity: number;
   price: number;
 }
+
+export default interface FavauriteType {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+  price: number;
+  fav: boolean;
+}

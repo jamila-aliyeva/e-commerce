@@ -9,13 +9,23 @@ import "./style.scss";
 import useLatestProducts from "@/store/lastProducts";
 import useCart from "@/store/cards";
 import Slider from "react-slick";
+import useFavaurite from "@/store/favaurite";
 
 const LastProducts = () => {
+  const { cart, Liked } = useFavaurite();
   const {
     loading,
     data: latestProducts,
     getData: getLatestProducts,
   } = useLatestProducts();
+
+  const isProductInCart = (productId: string) => {
+    return cart.some((cartProduct) => cartProduct.id === productId);
+  };
+
+  const inFavaurite = (productId: string) => {
+    return cart.some((cartProduct) => cartProduct.id === productId);
+  };
 
   const { addToCart } = useCart();
 
@@ -94,13 +104,11 @@ const LastProducts = () => {
                   objectFit="cover"
                 />
               </div>
-              <Link
-                href={`/category/${product?._id}`}
-                className="last__content">
+              <div  className="last__content">
                 <h3>{product?.title}</h3>
                 <p>Miqdori: {product?.quantity}</p>
                 <p>Narxi: {product?.price} sum</p>
-              </Link>
+              </div>
               <div className="button__wrapper">
                 <button
                   onClick={() =>
@@ -113,13 +121,29 @@ const LastProducts = () => {
                     )
                   }
                   className="product__btn">
-                  cartga qo'shish
+                  {isProductInCart(product?._id)
+                    ? "Qo'shilgan"
+                    : "cartga qo'shish"}
+                </button>
+                <button
+                  onClick={() =>
+                    Liked(
+                      product?._id,
+                      product?.image.url,
+                      product?.title,
+                      product?.description,
+                      product?.price
+                    )
+                  }
+                  className={`fav-cart ${
+                    inFavaurite(product?._id) ? "in-fav" : ""
+                  }`}>
+                  💟
                 </button>
               </div>
             </div>
           ))
         )}
-        {/* </div> */}
       </Slider>
     </>
   );
