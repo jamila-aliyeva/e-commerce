@@ -1,5 +1,5 @@
 "use client";
-import useFavaurite from "@/store/favaurite";
+import useFavaurite from "@/store/user/favaurite";
 import FavauriteType from "../../types/index";
 import Image from "next/image";
 
@@ -16,11 +16,11 @@ const FavouriteList = () => {
   return (
     <div className="cart__row">
       {newCart?.map((product) => (
-        <div key={product?._id} className="fav__card">
+        <div key={product?.id || ""} className="fav__card">
           <div className="fav__image">
             <Image
-              src={product?.image}
-              alt={product?.title}
+              src={product?.image?.url}
+              alt={product?.title || ""}
               fill
               objectFit="cover"
             />
@@ -31,7 +31,11 @@ const FavouriteList = () => {
             <p>Narxi: {product?.price} $</p>
           </div>
           <div className="btn__fav">
-            <button className="fav__btn" onClick={() => removeLiked(product?.id)}>O'chirish</button>
+            <button
+              className="fav__btn"
+              onClick={() => removeLiked(product?.id || "")}>
+              O`chirish
+            </button>
           </div>
         </div>
       ))}

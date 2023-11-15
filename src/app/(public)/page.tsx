@@ -4,6 +4,7 @@ import LastProducts from "./last-products/page";
 import AllProductsList from "../list/all-categories";
 
 import "./style.scss";
+import CategoriesCard from "@/components/card/categoriesCard";
 
 export const metadata: Metadata = {
   title: "Vodiy Parfum | Bosh sahifa",

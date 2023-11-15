@@ -2,11 +2,14 @@
 
 import request from "@/server";
 import useAuth from "@/store/auth";
+import ROLES from "@/types/roles";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const LoginForm = async () => {
+  const router = useRouter();
   const { setIsAuthenticated } = useAuth();
   const [loading, setLoading] = useState(false);
 
@@ -14,28 +17,31 @@ const LoginForm = async () => {
     try {
       e.preventDefault();
       setLoading(true);
+      const data = new FormData(e.currentTarget);
       const userData = {
-        username: e.currentTarget.username.value,
-        password: e.currentTarget.password.value,
+        username: data.get("username"),
+        password: data.get("password"),
       };
+
       const {
         data: { accesstoken, user },
       } = await request.post(`auth/login`, userData);
-      console.log(user);
-      toast.success("muaffaqiyatli kirish!");
+      toast.success("Muaffaqiyatli kirish!");
       setIsAuthenticated(user);
       window.localStorage.setItem("user", JSON.stringify(user));
       window.localStorage.setItem("token", accesstoken);
+      request.defaults.headers.Authorization = `Bearer ${accesstoken}`;
 
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 300);
-    } catch (err) {
-      toast.error("Foydalanuvchi yoki password xato");
+      if (user.role === ROLES.ADMIN) {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <section className="login-page">
       <div className="container">

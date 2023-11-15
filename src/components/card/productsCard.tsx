@@ -2,8 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 import "./products.scss";
-import useCart from "@/store/cards";
-import useFavaurite from "@/store/favaurite";
+import useCart from "@/store/user/cards";
+import useFavaurite from "@/store/user/favaurite";
+
+interface ProductsProps {
+  _id: string;
+  image: {
+    url: string;
+  };
+  title: string;
+  description: string;
+  price: number;
+  sold: number;
+  quantity: number;
+}
 
 const ProductsCard = ({
   sold,
@@ -13,7 +25,7 @@ const ProductsCard = ({
   title,
   description,
   image,
-}) => {
+}: ProductsProps) => {
   const { cart, Liked } = useFavaurite();
   const { addToCart } = useCart();
 
@@ -36,19 +48,9 @@ const ProductsCard = ({
         </div>
         <div className="button__wrapper">
           <button
-            onClick={() =>
-              addToCart(
-                _id,
-                image.url,
-                title,
-                description,
-                sold,
-                quantity,
-                price
-              )
-            }
+            onClick={() => addToCart(_id, image.url, title, description, price)}
             className="product__btn">
-            cartga qo'shish
+            cartga qo`shish
           </button>
           <button
             onClick={() => Liked(_id, image.url, title, description, price)}

@@ -3,9 +3,11 @@
 import { CART } from "@/constants";
 
 import { create } from "zustand";
-import FavauriteType from "../types/index";
+import FavauriteType from "../../types/index";
 import AllCategoryType from "@/types/all-categories";
+import { FAV } from "@/constants";
 import { toast } from "react-toastify";
+
 import request from "@/server";
 
 interface FavauriteState {
@@ -26,7 +28,7 @@ interface FavauriteState {
 }
 
 const productJson =
-  typeof window !== "undefined" ? localStorage.getItem("FAV") : false;
+  typeof window !== "undefined" ? localStorage.getItem(FAV) : false;
 const cart = productJson ? JSON.parse(productJson) : [];
 
 const useFavaurite = create<FavauriteState>()((set, get) => ({
@@ -48,17 +50,23 @@ const useFavaurite = create<FavauriteState>()((set, get) => ({
 
   Liked: async (id, image, title, description, price) => {
     const { cart } = get();
-    const values = {
+    const values: any = {
       id,
       image,
       title,
       description,
       price,
-      fav: false,
+      liked: false,
     };
-    cart.push(values);
+    const itemIndex = cart.findIndex((item) => item.id === id);
+
+    if (itemIndex === -1) {
+      cart.push(values);
+    } else {
+      cart.splice(itemIndex, 1);
+    }
     set({ cart });
-    localStorage.setItem("FAV", JSON.stringify(cart));
+    localStorage.setItem(FAV, JSON.stringify(cart));
     toast.success("Sevimlilar ro'yhatiga qo'shildi!");
   },
 

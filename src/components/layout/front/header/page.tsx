@@ -12,7 +12,7 @@ import { Montserrat } from "next/font/google";
 import useAuth from "@/store/auth";
 import { TOKEN, USER_DATA_STATE } from "@/constants";
 import { Badge } from "@mui/material";
-import useCart from "@/store/cards";
+import useCart from "@/store/user/cards";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 function Header() {
@@ -81,7 +81,7 @@ function Header() {
             </NavLink>
             {isAuthenticated ? (
               <NavLink onClick={() => setMenuOpen(false)} href={"/account"}>
-                Account
+                {user?.firstName}
               </NavLink>
             ) : (
               <NavLink onClick={() => setMenuOpen(false)} href={"/register"}>

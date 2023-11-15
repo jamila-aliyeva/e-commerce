@@ -1,14 +1,21 @@
+"use client";
 import AccountForm from "@/components/form/accountPage";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import "./style.scss";
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Vodiy Parfum | Hisob",
-  description: "Lorem ipusum ....",
-};
+import useAuth from "@/store/auth";
+
 
 const AccountPage = () => {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
   return (
     <section className="accountpage">
       <div className="container">

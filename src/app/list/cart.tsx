@@ -1,7 +1,8 @@
 "use client";
 
 import "./style.scss";
-import useCart from "@/store/cards";
+import useCart from "@/store/user/cards";
+import ClearIcon from "@mui/icons-material/Clear";
 import CartType from "@/types";
 import {
   Paper,
@@ -17,7 +18,7 @@ import { useEffect, useState } from "react";
 
 const CartList = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const { cart, setCart } = useCart();
+  const { cart, removeCart, setCart } = useCart();
 
   let newCart: (CartType | null)[] = cart.map((product: CartType) => ({
     ...product,
@@ -82,11 +83,11 @@ const CartList = () => {
             </TableHead>
             <TableBody>
               {newCart?.map((product) => (
-                <TableRow key={product?._id}>
+                <TableRow key={product?.id || ""}>
                   <TableCell align="right">
                     <Image
                       src={
-                        product?.image ||
+                        product?.image ??
                         "https://www.junglescout.com/wp-content/uploads/2021/01/product-photo-water-bottle-hero.png"
                       }
                       height={60}
@@ -96,22 +97,30 @@ const CartList = () => {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    {product?.title} <br />{" "}
+                    {product?.title || "Mahsulot"} <br />{" "}
                     <strong>{product?.description}</strong>{" "}
                   </TableCell>
                   <TableCell align="right">
-                    {product?.price * product?.quantity}$
+                    {product
+                      ? product?.price * product?.quantity
+                      : "Mavjud emas"}
+                    $
                   </TableCell>
                   <TableCell align="right">{product?.quantity}</TableCell>
                   <TableCell align="right">
                     <div className="cart_btn">
-                      <button onClick={() => decrease(product?.id || "id1")}>
+                      <button onClick={() => decrease(product?.id || "")}>
                         <span>-</span>
                       </button>
                       <span>{product?.quantity || 0}</span>
                       <button
-                        onClick={() => increaseQuantity(product?.id || "id")}>
+                        onClick={() => increaseQuantity(product?.id || "")}>
                         <span>+</span>
+                      </button>
+                      <button
+                        className="delete_product"
+                        onClick={() => removeCart(product?.id || "")}>
+                        <ClearIcon />
                       </button>
                     </div>
                   </TableCell>

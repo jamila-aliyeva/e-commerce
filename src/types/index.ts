@@ -23,3 +23,10 @@ export default interface FavauriteType {
   price: number;
   fav: boolean;
 }
+
+export interface PhotoDataTypes {
+  _id: string;
+  name: string;
+  user: string;
+  __v: number;
+}

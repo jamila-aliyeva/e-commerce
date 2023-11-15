@@ -23,10 +23,10 @@ const AccountForm = () => {
         const { data } = await request.get("auth/me");
         setUserInfo(data);
         setFormValues({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          username: data.username,
-          phoneNumber: data.phoneNumber,
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
+          username: data.username || "",
+          phoneNumber: data.phoneNumber || "",
         });
       } finally {
         setLoading(false);
@@ -46,10 +46,12 @@ const AccountForm = () => {
         username: data.get("username"),
         phoneNumber: data.get("phoneNumber"),
       };
-
       await request.put("auth/update", userData);
       toast("Malumotlaringiz saqlandi!");
       router.push("/");
+    } catch (error) {
+      console.error("Error during request:", error);
+      toast.error("An error occurred while saving your information.");
     } finally {
       setLoading(false);
     }
@@ -96,14 +98,14 @@ const AccountForm = () => {
                 setFormValues({ ...formValues, phoneNumber: e.target.value })
               }
             />
-            <button>o'zgartirish</button>
+            <button type="submit">o'zgartirish</button>
           </form>
         </div>
       </div>
       <div className="toggle-container">
         <div className="toggle-panel toggle-right">
           <h2>Sizngiz malumotlaringiz</h2>
-          <p>O'zingizni ma'lumotlaringizni o'zgartira olasiz</p>
+          <p>O'zingizni ma'lumotlaringizni o'zgartira olishingiz mumkin!</p>
         </div>
       </div>
     </div>

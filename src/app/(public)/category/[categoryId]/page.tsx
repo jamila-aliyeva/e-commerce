@@ -29,7 +29,7 @@ const AllCategories = async ({ params: { categoryId } }: Params) => {
   );
   return (
     <div style={{ marginTop: "100px" }}>
-      <div>
+      <div style={{ textAlign: "center" }}>
         <Image
           src={data.image.url}
           width={300}
@@ -38,7 +38,7 @@ const AllCategories = async ({ params: { categoryId } }: Params) => {
           objectFit="cover"
         />
       </div>
-      <h1 className="">
+      <h1 style={{ textAlign: "center", marginBlock: "30px" }}>
         {data.name} ({total})
       </h1>
       <ProductsRow products={products} />
