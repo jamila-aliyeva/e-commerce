@@ -3,6 +3,7 @@
 // import * as React from 'react';
 import React, { useEffect, useState } from "react";
 import Children from "@/types/children";
+import Usertype from "@/types/user";
 import { useRouter } from "next/navigation";
 import useAuth from "@/store/auth";
 import { toast } from "react-toastify";
@@ -16,11 +17,9 @@ import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -34,7 +33,6 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 import ClassIcon from "@mui/icons-material/Class";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemButton from "@mui/material/ListItemButton";
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -113,11 +111,11 @@ export default function Dashboard({ children }: Children) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
+  const [currentUser, setCurrentUser] = useState<Usertype | null>(null);
   const logout = () => {
     localStorage.removeItem(USER_DATA_STATE);
     Cookies.remove(TOKEN);
-    setIsAuthenticated(user);
+    setIsAuthenticated(currentUser);
     setOpenModal(false);
     toast.info("You are logged out");
     router.push("/");
@@ -145,7 +143,7 @@ export default function Dashboard({ children }: Children) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Yo'q</Button>
+          <Button onClick={handleClose}>Yo`q</Button>
           <Button onClick={logout} autoFocus>
             Ha
           </Button>
@@ -262,12 +260,11 @@ export default function Dashboard({ children }: Children) {
                 />
               </Link>
             </React.Fragment>
-            <Divider sx={{ my: 3 }} />
             <ListItemButton onClick={handleClickOpen}>
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemText primary="Chiqish" />
             </ListItemButton>
           </List>
         </Drawer>
@@ -282,9 +279,7 @@ export default function Dashboard({ children }: Children) {
             height: "100vh",
             overflow: "auto",
           }}>
-          <div className="container">
-            {children}
-          </div>
+          <div className="container">{children}</div>
         </Box>
       </Box>
     </ThemeProvider>

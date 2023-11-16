@@ -8,9 +8,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
-import { useEffect } from "react";
-import useCategories from "@/store/admin/categories";
+import "./style.scss";
+
 
 const CaegoriesPage = () => {
   // const { category, getCategory } = useCategories();
@@ -23,7 +24,16 @@ const CaegoriesPage = () => {
   return (
     <section>
       <div className="container">
-        <TableContainer style={{ marginTop: "120px" }}>
+        <div className="table__top">
+        <div >
+        <TextField id="standard-basic" label="Searching" variant="standard" />
+        </div>
+          <div >
+          <Button variant="contained">Qo`shish</Button>
+        </div>
+        </div>
+
+        <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
