@@ -3,6 +3,15 @@
     column-gap: 50px;
     grid-template-columns: repeat(3, 1fr);
 }
+.products__top{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  gap: 50px;
+  select{
+     padding: 10px;
+  }
+}
 
 
 .product__img {

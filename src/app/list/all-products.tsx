@@ -34,6 +34,11 @@ const AllproductsList = () => {
     setPage(1);
   };
 
+  const Sorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
+    setPage(1);
+  };
+
   useEffect(() => {
     const getCategories = async () => {
       const { data: categories } = await request.get("category");
@@ -59,25 +64,23 @@ const AllproductsList = () => {
     getProducts();
   }, [setCategories, setProducts, page, search, category]);
 
-  const Sorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
-    setPage(1);
-  };
-
   return (
     <>
-      <select onChange={(e) => Sorting(e)} className="products__sort">
-        <option value="">All</option>
-        {categories?.map((category: { _id: string; name: string }) => (
-          <option key={category?._id} value={category?._id}>
-            {category?.name}
-          </option>
-        ))}
-      </select>
+      <div className="products__top">
+        <h1>Barcha Mahsulotlar</h1>
+        <select onChange={(e) => Sorting(e)} className="products__sort">
+          <option value="">All</option>
+          {categories?.map((category: { _id: string; name: string }) => (
+            <option key={category?._id} value={category?._id}>
+              {category?.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="products__search">
         <input
           type="text"
-          placeholder="searching..."
+          placeholder="Searching..."
           value={search}
           onChange={(e) => {
             handleSearch(e);

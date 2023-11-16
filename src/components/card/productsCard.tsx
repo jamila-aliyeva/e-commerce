@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
-
 import "./products.scss";
 import useCart from "@/store/user/cards";
 import useFavaurite from "@/store/user/favaurite";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIconOutlined from "@mui/icons-material/FavoriteBorderOutlined";
 
 interface ProductsProps {
   _id: string;
@@ -26,11 +26,15 @@ const ProductsCard = ({
   description,
   image,
 }: ProductsProps) => {
-  const { cart, Liked } = useFavaurite();
-  const { addToCart } = useCart();
+  const { cart: favCart, Liked } = useFavaurite();
+  const { addToCart, cart } = useCart();
+
+  const isProductInCart = (productId: string) => {
+    return cart.some((cartProduct) => cartProduct.id === productId);
+  };
 
   const inFavaurite = (productId: string) => {
-    return cart.some((cartProduct) => cartProduct.id === productId);
+    return favCart.some((favCartProduct) => favCartProduct.id === productId);
   };
 
   return (
@@ -49,13 +53,17 @@ const ProductsCard = ({
         <div className="button__wrapper">
           <button
             onClick={() => addToCart(_id, image.url, title, description, price)}
-            className="product__btn">
-            cartga qo`shish
+            className={isProductInCart(_id) ? "in-cart" : "product__btn"}>
+            {isProductInCart(_id) ? "Qo'shilgan" : "Qo'shish"}
           </button>
           <button
             onClick={() => Liked(_id, image.url, title, description, price)}
-            className="fav-cart ">
-            💟
+            className={`fav-cart ${inFavaurite(_id) ? "in-fav" : ""}`}>
+            {inFavaurite(_id) ? (
+              <FavoriteIcon />
+            ) : (
+              <FavoriteBorderIconOutlined />
+            )}
           </button>
         </div>
       </div>

@@ -105,7 +105,7 @@ const LastProducts = () => {
             <div className="last__content">
               <h3>{product?.title}</h3>
               <p>Miqdori: {product?.quantity || "Mavjud emas"}</p>
-              <p>Narxi: {product?.price}  sum</p>
+              <p>Narxi: {product?.price} sum</p>
             </div>
             <div className="button__wrapper">
               <button
