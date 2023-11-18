@@ -33,11 +33,11 @@ const useUsers = create<AllUsersType>()((set, get) => ({
   selected: null,
   users: [],
   search: "",
-  getUsers: async () => {
+  getUsers: async (search = "", page = 1) => {
     try {
       const {
         data: { users, total },
-      } = await request.get("user");
+      } = await request.get("user", { search, page });
       console.log({ users, total });
       set({ users, total });
     } catch (error) {
