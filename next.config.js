@@ -10,6 +10,9 @@ const nextConfig = {
       "images.unsplash.com",
       "www.vhv.rs",
       "blog.depositphotos.com",
+      "d1nhio0ox7pgb.cloudfront.net",
+      "encrypted-tbn0.gstatic.com",
+      "media.istockphoto.com",
     ],
   },
 };

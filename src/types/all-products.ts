@@ -5,5 +5,7 @@ export default interface AllProductsType {
   _id: string;
   title: string;
   description: string;
-  image: string;
+  image: {
+    url: string;
+  };
 }

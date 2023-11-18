@@ -18,6 +18,7 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -39,6 +40,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
+import Image from "next/image";
 
 const drawerWidth: number = 240;
 
@@ -167,19 +169,28 @@ export default function Dashboard({ children }: Children) {
               }}>
               <MenuIcon />
             </IconButton>
-            {/* <Typography
+            <Typography
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
               sx={{ flexGrow: 1 }}>
-              Vodiy Perfum
-            </Typography> */}
+              Admin Hub
+            </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={1} color="success">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Link href="/account">
+              <Image
+                style={{ borderRadius: "50%", marginLeft: "20px" }}
+                src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                width={40}
+                height={40}
+                alt="avatar image"
+              />
+            </Link>
           </Toolbar>
         </AppBar>
         <Drawer

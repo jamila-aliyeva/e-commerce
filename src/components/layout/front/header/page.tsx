@@ -70,6 +70,7 @@ function Header() {
                 Savatcha
               </Badge>
             </NavLink>
+
             <NavLink onClick={() => setMenuOpen(false)} href={"/favourite"}>
               Sevimlilar
             </NavLink>

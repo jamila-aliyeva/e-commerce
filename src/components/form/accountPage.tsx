@@ -21,6 +21,7 @@ const AccountForm = () => {
       try {
         setLoading(true);
         const { data } = await request.get("auth/me");
+        // console.log(data)
         setUserInfo(data);
         setFormValues({
           firstName: data.firstName || "",
@@ -35,7 +36,7 @@ const AccountForm = () => {
     getUserInfo();
   }, [setUserInfo]);
 
-  const UpdateUserInfo = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       setLoading(true);
@@ -46,12 +47,10 @@ const AccountForm = () => {
         username: data.get("username"),
         phoneNumber: data.get("phoneNumber"),
       };
+
       await request.put("auth/update", userData);
-      toast("Malumotlaringiz saqlandi!");
+      toast.success("Your information is saved successfully!");
       router.push("/");
-    } catch (error) {
-      console.error("Error during request:", error);
-      toast.error("An error occurred while saving your information.");
     } finally {
       setLoading(false);
     }
@@ -61,10 +60,11 @@ const AccountForm = () => {
     <div className="form-wrap">
       <div className="form-container" style={{ marginTop: "30px" }}>
         <div>
-          <form onSubmit={UpdateUserInfo}>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="firstName"
+              id="firstName"
               placeholder="Familiya"
               value={formValues.firstName}
               onChange={(e) =>
@@ -74,6 +74,7 @@ const AccountForm = () => {
             <input
               type="text"
               name="lastName"
+              id="lastName"
               placeholder="Ism"
               value={formValues.lastName}
               onChange={(e) =>
@@ -83,6 +84,7 @@ const AccountForm = () => {
             <input
               type="text"
               name="username"
+              id="username"
               placeholder="Foydalanuvchi nomi"
               value={formValues.username}
               onChange={(e) =>
@@ -92,20 +94,21 @@ const AccountForm = () => {
             <input
               type="text"
               name="phoneNumber"
+              id="phoneNumber"
               placeholder="+998 91 342 13 45"
               value={formValues.phoneNumber}
               onChange={(e) =>
                 setFormValues({ ...formValues, phoneNumber: e.target.value })
               }
             />
-            <button type="submit">o'zgartirish</button>
+            <button type="submit">o`zgartirish</button>
           </form>
         </div>
       </div>
       <div className="toggle-container">
         <div className="toggle-panel toggle-right">
           <h2>Sizngiz malumotlaringiz</h2>
-          <p>O'zingizni ma'lumotlaringizni o'zgartira olishingiz mumkin!</p>
+          <p>O`zingizni ma`lumotlaringizni o`zgartira olishingiz mumkin!</p>
         </div>
       </div>
     </div>

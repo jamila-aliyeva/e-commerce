@@ -8,7 +8,9 @@ export default interface PaginationDataTypes {
 
 export default interface CartType {
   id: string;
-  image: string;
+  image: {
+    url: string;
+  };
   title: string;
   description: string;
   quantity: number;
@@ -17,7 +19,9 @@ export default interface CartType {
 
 export default interface FavauriteType {
   id: string;
-  image: string;
+  image: {
+    url: string;
+  };
   title: string;
   description: string;
   price: number;

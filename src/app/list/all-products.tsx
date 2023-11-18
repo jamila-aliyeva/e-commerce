@@ -76,6 +76,11 @@ const AllproductsList = () => {
             </option>
           ))}
         </select>
+        <select onChange={(e) => Sorting(e)} className="products__sort">
+          <option value="">Default</option>
+          <option value={`""`}>Latest</option>
+          <option value="oldest">Oldest</option>
+        </select>
       </div>
       <div className="products__search">
         <input

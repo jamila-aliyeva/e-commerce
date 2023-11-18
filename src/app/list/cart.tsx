@@ -4,6 +4,7 @@ import "./style.scss";
 import useCart from "@/store/user/cards";
 import ClearIcon from "@mui/icons-material/Clear";
 import CartType from "@/types";
+import Link from "next/link";
 import {
   Paper,
   Table,
@@ -18,7 +19,7 @@ import { useEffect, useState } from "react";
 
 const CartList = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const { cart, removeCart, setCart } = useCart();
+  const { cart, removeCart, setCart, OrderProduct } = useCart();
 
   let newCart: (CartType | null)[] = cart.map((product: CartType) => ({
     ...product,
@@ -137,7 +138,19 @@ const CartList = () => {
           </p>
           <div className="btn">
             {" "}
-            <button>Buyurtma qilish</button>
+            <button onClick={OrderProduct}>Buyurtma qilish</button>
+            <br />
+            <Link href="/orders">
+              {" "}
+              <button
+                style={{
+                  marginTop: "10px",
+                  backgroundColor: "yellow",
+                  color: "black",
+                }}>
+                Buyurtmalarni ko`rish
+              </button>
+            </Link>
           </div>
         </div>
       </div>
