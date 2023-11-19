@@ -11,7 +11,7 @@ const ContactPage = () => {
       <div className="wrapper" style={{ marginTop: "100px" }}>
         <form className="form">
           <h1>
-            Biz bilan bog'laning va taklif, shikoyatlaringizni yozib qoldiring!
+            Biz bilan bog`laning va taklif, shikoyatlaringizni yozib qoldiring!
           </h1>
           <div className="email block">
             <label htmlFor="frm-email">Email</label>

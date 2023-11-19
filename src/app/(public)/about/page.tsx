@@ -10,7 +10,7 @@ const AboutPage = () => {
     <section>
       <div className="container">
         <h2 className="about__title">
-          Biz bilan o'z sifatli mahsulotlaringizni <br /> tez va oson olishingiz
+          Biz bilan o`z sifatli mahsulotlaringizni <br /> tez va oson olishingiz
           mumkin
         </h2>
         <div className="about__wrap">
