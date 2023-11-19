@@ -4,5 +4,5 @@ export default interface Usertype {
   lastName: string;
   username: string;
   phoneNumber: number;
-  role: number;
+  role: number ;
 }

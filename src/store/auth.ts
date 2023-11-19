@@ -22,7 +22,7 @@ const useAuth = create<AuthState>()((set, get) => {
     ),
     user,
     setIsAuthenticated: (user) => {
-      const { isAuthenticated } = get();
+      const { isAuthenticated} = get();
       set({ isAuthenticated: !isAuthenticated, user });
     },
   };
