@@ -14,6 +14,7 @@ interface Types {
   search: string;
   page: number;
   category?: string;
+  sort: string;
 }
 
 const AllproductsList = () => {
@@ -23,11 +24,9 @@ const AllproductsList = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(1);
   const [page, setPage] = useState(1);
-  const [priceOrder, setPriceOrder] = useState<string>("yangi ");
+  const [priceOrder, setPriceOrder] = useState<string>("");
   const [dateOrder, setDateOrder] = useState<string>("yangi ");
   const [salesOrder, setSalesOrder] = useState<string>("yangi");
-
-  
 
   const controlPages = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -39,8 +38,15 @@ const AllproductsList = () => {
     setPage(1);
   };
 
+  ///categories sorting
+
   const Sorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
+    setPage(1);
+  };
+
+  const PriceSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPriceOrder(event.target.value);
     setPage(1);
   };
 
@@ -56,6 +62,7 @@ const AllproductsList = () => {
         page,
         limit: LIMIT,
         search,
+        sort: priceOrder,
       };
       if (category) {
         params.category = category;
@@ -67,7 +74,7 @@ const AllproductsList = () => {
       setTotal(total);
     };
     getProducts();
-  }, [setCategories, setProducts, page, search, category]);
+  }, [setCategories, setProducts, priceOrder, page, search, category]);
 
   return (
     <>
@@ -81,13 +88,18 @@ const AllproductsList = () => {
             </option>
           ))}
         </select>
+        <select onChange={(e) => PriceSorting(e)} className="products__sort">
+          <option value="">Narxi</option>
+          <option value="price">Qimmat</option>
+          <option value="-price">Arzon</option>
+        </select>
         <select onChange={(e) => Sorting(e)} className="products__sort">
           <option value="">Default</option>
-          <option value={`""`}>Latest</option>
-          <option value="oldest">Oldest</option>
+          <option value={`""`}>So`ngi</option>
+          <option value="oldest">Oldingi</option>
         </select>
       </div>
-      <div className="products__search">
+      <div className="products__search" style={{ marginTop: "20px" }}>
         <input
           type="text"
           placeholder="Searching..."

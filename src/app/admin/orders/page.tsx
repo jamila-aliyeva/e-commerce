@@ -21,7 +21,8 @@ const UNDELIVERED = "UNDELIVERED";
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [update, setUpdate] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+
   const [statusFilter, setStatusFilter] = useState("");
 
   const deleteOrder = async (id: string) => {
@@ -37,14 +38,12 @@ const OrdersPage = () => {
 
   const confirmOrder = async (id: string) => {
     try {
-      setLoading(true);
       const { data } = await request.post(`payment/${id}`);
       toast.success("Buyurtmangiz tasdiqlandi!");
       setUpdate(!update);
     } catch (error) {
       toast.error("Xatolik");
     } finally {
-      setLoading(false);
     }
   };
 
@@ -53,11 +52,9 @@ const OrdersPage = () => {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        setLoading(true);
         const { data } = await request.get("payment");
         setOrders(data);
       } finally {
-        setLoading(false);
       }
     };
     getOrders();
@@ -87,6 +84,11 @@ const OrdersPage = () => {
             Yetkazilmadi
           </Button>
         </div> */}
+        {/* <select onChange={(e) => OrderedSorting(e)} className="products__sort">
+          <option value="">Default</option>
+          <option value="delevered">Yetkazilgan</option>
+          <option value="undelevered">Yetkazilmagan</option>
+        </select> */}
 
         <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

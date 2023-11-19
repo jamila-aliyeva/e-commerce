@@ -37,28 +37,23 @@ interface Types {
   search: string;
   page: number;
   category?: string;
+  sort: string;
 }
 
 const ProductsPage = () => {
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const [sorting, setSorting] = useState("");
+  const [priceOrder, setPriceOrder] = useState<string>("");
   const [products, setProducts] = useState<AllProductsType[]>([]);
   const [total, setTotal] = useState(1);
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<null | string>(null);
   const [photo, setPhoto] = useState<{ public_id: string; url: string }>({
     public_id: "",
     url: "",
   });
-
-  const Sorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
-    setPage(1);
-  };
-
-  const [selected, setSelected] = useState<null | string>(null);
 
   const [formData, setFormData] = useState({
     sold: "",
@@ -67,6 +62,18 @@ const ProductsPage = () => {
     image: "",
     price: "",
   });
+
+  const PriceSorting = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPriceOrder(event.target.value);
+    setPage(1);
+  };
+
+  const Sorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
+    setPage(1);
+  };
+
+ 
 
   useEffect(() => {
     const getCategories = async () => {
@@ -80,6 +87,7 @@ const ProductsPage = () => {
         page,
         limit: LIMIT,
         search,
+        sort: priceOrder,
       };
       if (category) {
         params.category = category;
@@ -96,7 +104,7 @@ const ProductsPage = () => {
       }
     };
     getProducts();
-  }, [setCategories, setProducts, page, search, category]);
+  }, [page, search, category, priceOrder, setCategories, setProducts]);
 
   const controlPages = (e: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -117,7 +125,7 @@ const ProductsPage = () => {
     setPage(1);
   };
 
-  const handleClickOpen = () => {
+  const OpenModal = () => {
     setOpen(true);
     setFormData({
       sold: "",
@@ -128,7 +136,7 @@ const ProductsPage = () => {
     });
   };
 
-  const handleInputChange = (field: string, value: string) => {
+  const ChangingValue = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
   };
 
@@ -136,7 +144,7 @@ const ProductsPage = () => {
     setOpen(false);
   };
   const handleEdit = async (id: string) => {
-    handleClickOpen();
+    OpenModal();
     setSelected(id);
 
     const { data }: { data: Partial<typeof formData> } = await request.get(
@@ -209,9 +217,17 @@ const ProductsPage = () => {
                 </option>
               ))}
             </select>
+            <select
+              style={{ marginLeft: "15px" }}
+              onChange={(e) => PriceSorting(e)}
+              className="products__sort">
+              <option value="">Narxi</option>
+              <option value="price">Qimmat</option>
+              <option value="-price">Arzon</option>
+            </select>
           </div>
           <div>
-            <Button variant="contained" onClick={handleClickOpen}>
+            <Button variant="contained" onClick={OpenModal}>
               Qo`shish
             </Button>
           </div>
@@ -291,7 +307,7 @@ const ProductsPage = () => {
               type="text"
               fullWidth
               value={formData.title}
-              onChange={(e) => handleInputChange("title", e.target.value)}
+              onChange={(e) => ChangingValue("title", e.target.value)}
             />
             <TextField
               autoFocus
@@ -302,7 +318,7 @@ const ProductsPage = () => {
               type="text"
               fullWidth
               value={formData.price}
-              onChange={(e) => handleInputChange("price", e.target.value)}
+              onChange={(e) => ChangingValue("price", e.target.value)}
             />
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <TextField
@@ -314,7 +330,7 @@ const ProductsPage = () => {
                 type="text"
                 fullWidth
                 value={formData.sold}
-                onChange={(e) => handleInputChange("sold", e.target.value)}
+                onChange={(e) => ChangingValue("sold", e.target.value)}
               />
               <TextField
                 size="small"
@@ -326,7 +342,7 @@ const ProductsPage = () => {
                 fullWidth
                 value={formData.description}
                 onChange={(e) =>
-                  handleInputChange("description", e.target.value)
+                  ChangingValue("description", e.target.value)
                 }
               />
             </div>
