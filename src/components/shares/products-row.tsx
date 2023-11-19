@@ -16,7 +16,21 @@ const ProductsRow = ({ loading, products }: ProductsRowProps) => {
           <div>loading...</div>
         ) : (
           products.map((product) => (
-            <CategoriesCard key={product._id} {...product} />
+            <div className="product__border" key={product?._id}>
+              <div className="products__card">
+                <div className="product__img">
+                  <Image
+                    src={product?.image?.url}
+                    alt={product?.name}
+                    fill
+                    objectFit="cover"
+                  />
+                </div>
+                <div className="category__content">
+                  <h3>{product?.name}</h3>
+                </div>
+              </div>
+            </div>
           ))
         )}
       </div>

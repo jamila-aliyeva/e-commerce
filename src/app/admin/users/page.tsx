@@ -1,6 +1,5 @@
 "use client";
 
-import toast from "react-toastify";
 import {
   Button,
   Table,
@@ -40,8 +39,7 @@ const UsersPage = () => {
     password: "",
   });
 
-  const { users, total, loading, getUsers, addUser, editUser, deleteUser } =
-    useUsers();
+  const { users, total, getUsers, addUser, deleteUser } = useUsers();
 
   useEffect(() => {
     getUsers(page, search);

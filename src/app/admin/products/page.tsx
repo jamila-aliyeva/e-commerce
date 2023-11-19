@@ -23,6 +23,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 import AllProductsType from "@/types/all-products";
 import Image from "next/image";
 
+interface FormData {
+  // _id: string;
+  sold: string;
+  title: string;
+  description: string;
+  image: string;
+  price: string;
+}
+
 interface Types {
   limit: number;
   search: string;
@@ -30,13 +39,12 @@ interface Types {
   category?: string;
 }
 
-
 const ProductsPage = () => {
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [sorting, setSorting] = useState("");
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<AllProductsType[]>([]);
   const [total, setTotal] = useState(1);
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
@@ -131,14 +139,16 @@ const ProductsPage = () => {
     handleClickOpen();
     setSelected(id);
 
-    const { data }: { data: Partial<typeof formData> } = await request.get(`product/${id}`);
-    setFormData(prevData=> ({
+    const { data }: { data: Partial<typeof formData> } = await request.get(
+      `product/${id}`
+    );
+    setFormData((prevData) => ({
       ...prevData,
-  title: data?.title || "",
-  price: data?.price || "",
-  sold: data?.sold || "",
-  description: data?.description || "",
-    }))
+      title: data?.title || "",
+      price: data?.price || "",
+      sold: data?.sold || "",
+      description: data?.description || "",
+    }));
   };
 
   const handleSave = async () => {
@@ -150,7 +160,7 @@ const ProductsPage = () => {
     handleClose();
   };
 
-  const addProduct = async (formData) => {
+  const addProduct = async (formData: FormData) => {
     try {
       await request.post("product", formData);
     } catch (error) {
@@ -158,7 +168,7 @@ const ProductsPage = () => {
     }
   };
 
-  const editProduct = async (_id: string, formData) => {
+  const editProduct = async (_id: string, formData: FormData) => {
     try {
       await request.put(`product/${_id}`, formData);
     } catch (error) {

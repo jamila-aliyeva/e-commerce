@@ -37,22 +37,27 @@ const style = {
 };
 
 const CaegoriesPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
   const [photo, setPhoto] = useState<{ public_id: string; url: string }>({
     public_id: "",
     url: "",
   });
-  const [selected, setSelected] = useState<string | null>(null);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     data: categories,
-    total,
     getData: getCategories,
     deleteCategory,
     addCategory,
   } = useCategory();
+
+  const getCategory = async () => {
+    formData.image = photo;
+    await addCategory(formData, selected);
+    handleClose();
+    setSelected(null);
+  };
 
   useEffect(() => {
     getCategories();
@@ -76,7 +81,7 @@ const CaegoriesPage = () => {
     setOpen(false);
   };
 
-  const handleInputChange = (field: string, value: string) => {
+  const InputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
   };
 
@@ -87,13 +92,6 @@ const CaegoriesPage = () => {
     imageData.append("file", file);
     const { data } = await request.post("upload", imageData);
     setPhoto(data);
-  };
-
-  const handleCategory = async () => {
-    formData.image = photo;
-    await addCategory(formData, selected);
-    handleClose();
-    setSelected(null);
   };
 
   const handleEdit = async (id: string) => {
@@ -119,7 +117,7 @@ const CaegoriesPage = () => {
             /> */}
             <h2>Barcha Kategoriyalar ({categories?.length})</h2>
           </div>
-         
+
           <div>
             <Button onClick={handleClickOpen}>Qo`shish</Button>
           </div>
@@ -182,7 +180,7 @@ const CaegoriesPage = () => {
               type="text"
               fullWidth
               value={formData.name}
-              onChange={(e) => handleInputChange("Nomi", e.target.value)}
+              onChange={(e) => InputChange("Nomi", e.target.value)}
             />
             <input
               className="upload-photo"
@@ -198,7 +196,7 @@ const CaegoriesPage = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Bekor qilish</Button>
-            <Button onClick={() => handleCategory()}>
+            <Button onClick={() => getCategory()}>
               {selected === null ? "Qo`shish" : "Saqlash"}
             </Button>
           </DialogActions>

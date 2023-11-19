@@ -115,12 +115,14 @@ const CartList = () => {
                   <TableCell align="right">
                     <Image
                       src={
-                        product?.image ??
-                        "https://www.junglescout.com/wp-content/uploads/2021/01/product-photo-water-bottle-hero.png"
+                        typeof product?.image === "string"
+                          ? product?.image
+                          : product?.image?.url ||
+                            "https://www.junglescout.com/wp-content/uploads/2021/01/product-photo-water-bottle-hero.png"
                       }
                       height={60}
                       width={60}
-                      alt={product?.title}
+                      alt={product?.title || "Product Image"}
                       objectFit="contain"
                     />
                   </TableCell>
@@ -164,7 +166,7 @@ const CartList = () => {
             Umumiy Summa: <strong>{totalPrice}</strong> ${" "}
           </p>
           <textarea
-          style={{marginTop: '20px'}}
+            style={{ marginTop: "20px" }}
             onChange={(e) => setSentCommit(e.target.value)}
             id="comment"
             placeholder="Izoh yozish..."></textarea>

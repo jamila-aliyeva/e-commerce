@@ -113,11 +113,11 @@ export default function Dashboard({ children }: Children) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const [currentUser, setCurrentUser] = useState<Usertype | null>(null);
+
   const logout = () => {
     localStorage.removeItem(USER_DATA_STATE);
     Cookies.remove(TOKEN);
-    setIsAuthenticated(currentUser);
+    // setIsAuthenticated(user);
     setOpenModal(false);
     toast.info("You are logged out");
     router.push("/");

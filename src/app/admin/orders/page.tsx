@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import request from "@/server";
 import { toast } from "react-toastify";
 import {
   Button,
@@ -12,18 +11,22 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import request from "@/server";
 import currentTime from "@/utils/date";
 import OrderType from "@/types/orders";
+
+const DELIVERED = "DELIVERED";
+const UNDELIVERED = "UNDELIVERED";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("");
 
   const deleteOrder = async (id: string) => {
     try {
       const { data } = await request.put(`payment/${id}`);
-
       setUpdate(!update);
       toast.success("Buyurtma bekor qilindi!");
     } catch (err) {
@@ -36,7 +39,7 @@ const OrdersPage = () => {
     try {
       setLoading(true);
       const { data } = await request.post(`payment/${id}`);
-      toast.success("BUyurtmangiz tasdiqlandi!");
+      toast.success("Buyurtmangiz tasdiqlandi!");
       setUpdate(!update);
     } catch (error) {
       toast.error("Xatolik");
@@ -45,12 +48,14 @@ const OrdersPage = () => {
     }
   };
 
+  //getting orders
+
   useEffect(() => {
     const getOrders = async () => {
       try {
         setLoading(true);
         const { data } = await request.get("payment");
-        console.log(data);
+        setOrders(data);
       } finally {
         setLoading(false);
       }
@@ -58,10 +63,30 @@ const OrdersPage = () => {
     getOrders();
   }, [update]);
 
+  const filteredOrders = statusFilter
+    ? orders.filter((order: OrderType) => order.status === statusFilter)
+    : orders;
+
   return (
     <section style={{ marginTop: "120px" }}>
       <div className="container">
         <h2>Buyurtmalar ({orders?.length})</h2>
+
+        {/* <div>
+          <Button variant="outlined" onClick={() => handleStatusFilter("")}>
+            Hammasi
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => handleStatusFilter(DELIVERED)}>
+            Yetkazib berildi
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => handleStatusFilter(UNDELIVERED)}>
+            Yetkazilmadi
+          </Button>
+        </div> */}
 
         <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -69,9 +94,9 @@ const OrdersPage = () => {
               <TableRow>
                 <TableCell>Buyurtama Idsi</TableCell>
                 <TableCell align="right">Izoh</TableCell>
+                <TableCell align="right">Sanasi</TableCell>
                 <TableCell align="right">Holati</TableCell>
                 <TableCell align="right">Tasdiq</TableCell>
-                <TableCell align="right">Sanasi</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -87,17 +112,19 @@ const OrdersPage = () => {
                     {currentTime(el?.createdAt)}
                   </TableCell>
                   <TableCell align="right">{el?.status}</TableCell>
-                  <TableCell align="right">
+                  <TableCell
+                    align="right"
+                    style={{ display: "flex", gap: "15px" }}>
                     <Button
                       variant="outlined"
                       onClick={() => confirmOrder(el?._id)}>
-                      Tasdiqlash
+                      confirm
                     </Button>
                     <Button
                       style={{ marginLeft: "10px" }}
                       variant="contained"
                       onClick={() => deleteOrder(el?._id)}>
-                      Bekor qilish
+                      cencel
                     </Button>
                   </TableCell>
                 </TableRow>

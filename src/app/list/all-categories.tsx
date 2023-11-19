@@ -1,6 +1,5 @@
 "use client";
 
-import CategoriesCard from "@/components/card/categoriesCard";
 import useAllCategories from "@/store/user/all-categories";
 import Image from "next/image";
 
@@ -11,7 +10,7 @@ import Link from "next/link";
 
 const AllProductsList = () => {
   useEffect(() => {
-    AOS.init({ duration: "2100" });
+    AOS.init({ duration: 2100 });
   }, []);
   const { loading, data: category = [], getData } = useAllCategories();
 

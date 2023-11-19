@@ -19,7 +19,12 @@ const FavouriteList = () => {
         <div key={product?.id || ""} className="fav__card">
           <div className="fav__image">
             <Image
-              src={product?.image?.url}
+              src={
+                typeof product?.image === "string"
+                  ? product?.image
+                  : product?.image?.url ||
+                    "https://www.junglescout.com/wp-content/uploads/2021/01/product-photo-water-bottle-hero.png"
+              }
               alt={product?.title || ""}
               fill
               objectFit="cover"
