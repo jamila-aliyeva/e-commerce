@@ -64,7 +64,7 @@ const LoginForm = async () => {
             <div className="toggle-panel toggle-right">
               <h2>Xush kelibsiz!</h2>
               <p>
-                Hali ham o`zingizni sahifangiz yo'qmi? O`z sahifangizni
+                Hali ham o`zingizni sahifangiz yo`qmi? O`z sahifangizni
                 yaratish👇
               </p>
               <Link href="/register">
