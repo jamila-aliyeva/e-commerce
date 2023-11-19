@@ -17,12 +17,17 @@ interface Types {
 }
 
 const AllproductsList = () => {
-  const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
+  const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(1);
   const [page, setPage] = useState(1);
+  const [priceOrder, setPriceOrder] = useState<string>("yangi ");
+  const [dateOrder, setDateOrder] = useState<string>("yangi ");
+  const [salesOrder, setSalesOrder] = useState<string>("yangi");
+
+  
 
   const controlPages = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);

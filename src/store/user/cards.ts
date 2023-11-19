@@ -42,6 +42,7 @@ interface LatestType {
 const productJson =
   typeof window !== "undefined" ? localStorage.getItem(CART) : false;
 const cart = productJson ? JSON.parse(productJson) : [];
+
 const JsonCart = Cookies.get("cart");
 
 let StorageProducts = JsonCart ? JSON.parse(JsonCart) : null;
@@ -121,7 +122,7 @@ const useCart = create<LatestType>()((set, get) => ({
     });
 
     try {
-      await request.post("payment", cartProducts);
+      await request.post("auth/payments");
       console.log(cartProducts);
       Cookies.remove("cart");
       const { refresh } = get();

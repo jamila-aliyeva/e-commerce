@@ -119,6 +119,7 @@ const CaegoriesPage = () => {
             /> */}
             <h2>Barcha Kategoriyalar ({categories?.length})</h2>
           </div>
+         
           <div>
             <Button onClick={handleClickOpen}>Qo`shish</Button>
           </div>
@@ -140,12 +141,10 @@ const CaegoriesPage = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell align="right">
                     <Image
-                      src={
-                        el?.image && el.image.url ? el.image?.url : "No Image"
-                      }
-                      width={80}
-                      height={80}
-                      alt="no image"
+                      width={60}
+                      height={60}
+                      src={el?.image.url}
+                      alt={el?.name}
                     />
                   </TableCell>
                   <TableCell align="right">{el?.name}</TableCell>
@@ -191,16 +190,11 @@ const CaegoriesPage = () => {
               onChange={uploadPhoto}
               type="file"
             />
-            {/* {photo?.url ? (
+            {photo?.url ? (
               <div className="upload-photo-container">
-                <Image
-                  alt="Image"
-                  width={70}
-                  height={70}
-                  src={photo?.url || ""}
-                />
+                <Image alt="Image" width={60} height={60} src={photo?.url} />
               </div>
-            ) : null} */}
+            ) : null}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Bekor qilish</Button>

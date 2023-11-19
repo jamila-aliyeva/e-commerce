@@ -22,7 +22,7 @@ interface AllUsersType {
 
   getUsers: (page?: number, search?: string) => void;
   addUser: (user: UserState, selected: string | null) => void;
-  editUser: (user: UserState, id: string) => void;
+
   deleteUser: (id: string) => void;
 }
 
@@ -33,11 +33,11 @@ const useUsers = create<AllUsersType>()((set, get) => ({
   selected: null,
   users: [],
   search: "",
-  getUsers: async (search = "", page = 1) => {
+  getUsers: async (page = 1, search = "") => {
     try {
       const {
         data: { users, total },
-      } = await request.get("user", { search, page });
+      } = await request.get("user", { params: { page, search } });
       console.log({ users, total });
       set({ users, total });
     } catch (error) {
@@ -59,15 +59,7 @@ const useUsers = create<AllUsersType>()((set, get) => ({
       set({ loading: false });
     }
   },
-  editUser: async (user, id) => {
-    try {
-      set({ loading: true });
-      await request.put(`user/${id}`, user);
-      toast.success("Information edited successfully");
-    } finally {
-      set({ loading: false });
-    }
-  },
+
   deleteUser: async (id) => {
     try {
       set({ loading: true });

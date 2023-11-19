@@ -16,10 +16,17 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import request from "@/server";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const CartList = () => {
+  const [comments, setSentCommit] = useState("");
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const { cart, removeCart, setCart, OrderProduct } = useCart();
+
+  const router = useRouter();
+
+  const { cart, removeCart, setCart } = useCart();
 
   let newCart: (CartType | null)[] = cart.map((product: CartType) => ({
     ...product,
@@ -68,6 +75,26 @@ const CartList = () => {
     }, 0);
     setTotalPrice(newTotalPrice);
   }, [newCart]);
+
+  const OrderProduct = async () => {
+    try {
+      const order = {
+        cart: newCart.map((product) => ({
+          product: product?.id,
+          quantity: product?.quantity,
+        })),
+        comment: comments,
+      };
+      await request.post("payment", order);
+      console.log(cart);
+      localStorage.removeItem("CART");
+      router.push("/");
+      toast.success("Buyurtamngiz qabul qilindi!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Buyurtma qabul qilishda xatolik!");
+    }
+  };
 
   return (
     <div className="table_wrapper">
@@ -136,6 +163,11 @@ const CartList = () => {
           <p>
             Umumiy Summa: <strong>{totalPrice}</strong> ${" "}
           </p>
+          <textarea
+          style={{marginTop: '20px'}}
+            onChange={(e) => setSentCommit(e.target.value)}
+            id="comment"
+            placeholder="Izoh yozish..."></textarea>
           <div className="btn">
             {" "}
             <button onClick={OrderProduct}>Buyurtma qilish</button>

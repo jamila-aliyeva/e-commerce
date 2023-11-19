@@ -11,7 +11,6 @@ const ProductsPage = () => {
     <section>
       <div className="container">
         <div className="products_title">
-          
           <AllproductsList />
         </div>
       </div>

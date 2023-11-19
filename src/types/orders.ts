@@ -1,5 +1,3 @@
-
-
 interface orderCart {
   _id: string;
   product: {
@@ -41,4 +39,10 @@ export default interface OrderType {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  quantity: number;
+  product: {
+    title: string;
+    description: string;
+    price: number;
+  };
 }

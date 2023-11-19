@@ -1,6 +1,9 @@
+'use client'
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import request from "@/server";
 import './style.scss';
 import {
   Button,
@@ -13,14 +16,36 @@ import {
   TextField,
 } from "@mui/material";
 
+
+import {useState, useEffect } from "react";
+
 const DashboardPage = () => {
+  const [products, setProducts] = useState([]);
+
+  const getProducts = async () => {
+    try {
+      const {
+        data: { products, total },
+      } = await request.get("product");
+      console.log(data)
+      setProducts(products);
+      setTotal(total);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(()=> {
+    getProducts();
+  }, [])
+
   return (
     <section className="dashbaord__page">
       <div className="container">
         <h2 className="dashboard__title" >Dashboard</h2>
         <h4 className="break">
           <Link href="/admin"><span>Dashboard | </span> </Link>
-          <Link href="/"> Home </Link>
+          <Link href="/"> Bosh sahifa </Link>
         </h4>
         <div className="orders__wrapper">
           <div className="orders__total">
@@ -56,7 +81,9 @@ const DashboardPage = () => {
             />
            <div>
            <h3>Mahsulotlar</h3>
-            <h1>83745</h1>
+            <h1>
+              {/* {data?.length} */}
+            </h1>
             </div> 
           </div>
         </div>
@@ -101,7 +128,7 @@ const DashboardPage = () => {
            
         </div>
         <div className="dashboard__bside">
-          jkfgshfjdfhjhbjsd
+         Lorem ipsum ...
         </div>
         </div>
         </div>

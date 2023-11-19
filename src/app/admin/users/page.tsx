@@ -42,7 +42,6 @@ const UsersPage = () => {
 
   const { users, total, loading, getUsers, addUser, editUser, deleteUser } =
     useUsers();
-    console.log(users)
 
   useEffect(() => {
     getUsers(page, search);
@@ -86,14 +85,14 @@ const UsersPage = () => {
     handleClickOpen();
     setSelected(id);
 
-      const { data } = await request.get(`user/${id}`);
-      setFormData({
-        firstName: data?.firstName || "",
-        lastName: data?.lastName || "",
-        username: data?.username || "",
-        phoneNumber: data?.phoneNumber || "",
-        password: data?.password || "",
-      });
+    const { data } = await request.get(`user/${id}`);
+    setFormData({
+      firstName: data?.firstName || "",
+      lastName: data?.lastName || "",
+      username: data?.username || "",
+      phoneNumber: data?.phoneNumber || "",
+      password: data?.password || "",
+    });
   };
 
   return (
@@ -131,7 +130,7 @@ const UsersPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {users.map((el) => (
+              {users.map((el) => (
                 <TableRow
                   key={el?._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -153,7 +152,7 @@ const UsersPage = () => {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))} */}
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

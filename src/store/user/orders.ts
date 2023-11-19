@@ -17,7 +17,7 @@ const useOrders = create<OrdersState>()((set, get) => ({
     try {
       const { data } = await request.get("auth/payment");
       console.log(data);
-      
+
       data.reverse();
       const orders = data.slice(0, 3);
       set({ orders, total: data.length });

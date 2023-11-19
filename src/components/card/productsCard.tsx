@@ -41,7 +41,12 @@ const ProductsCard = ({
     <div className="product__border" key={_id}>
       <div className="products__card">
         <div className="product__img">
-          <Image src={image.url} alt={title} fill objectFit="cover" />
+          <Image
+            src={image.url}
+            alt={title}
+            fill
+            objectFit="cover"
+          />
         </div>
         <div className="product__content">
           <h3>{title}</h3>
