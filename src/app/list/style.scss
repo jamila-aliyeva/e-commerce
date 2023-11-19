@@ -144,7 +144,10 @@
   padding: 3px;
   margin-left: 10px;
 }
-@media (max-width: 595px){
+.table__price{
+  text-align: center;
+}
+@media (max-width: 990px){
   .table_wrapper{
       display: grid;
       grid-template-columns: repeat(1, 1fr);

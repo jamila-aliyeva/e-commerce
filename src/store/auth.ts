@@ -12,17 +12,16 @@ const userJson = window.localStorage.getItem("user");
 const user = userJson ? JSON.parse(userJson) : null;
 
 const useAuth = create<AuthState>()((set, get) => {
-  const userJson =
-    typeof window !== "undefined" ? window.localStorage.getItem("user") : null;
+  const isBrowser = typeof window !== "undefined";
+
+  const userJson = isBrowser ? window.localStorage.getItem("user") : null;
   const user = userJson ? JSON.parse(userJson) : null;
 
   return {
-    isAuthenticated: Boolean(
-      typeof window !== "undefined" && window.localStorage.getItem("token")
-    ),
+    isAuthenticated: Boolean(isBrowser && window.localStorage.getItem("token")),
     user,
     setIsAuthenticated: (user) => {
-      const { isAuthenticated} = get();
+      const { isAuthenticated } = get();
       set({ isAuthenticated: !isAuthenticated, user });
     },
   };

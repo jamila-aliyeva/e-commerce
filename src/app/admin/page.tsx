@@ -58,7 +58,7 @@ const DashboardPage = () => {
             />
             <div className="dashboard__top">
               <h3>Barcha buyurtmalar</h3>
-              <h1>83745</h1>
+              <h1>156 ta</h1>
             </div>
           </div>
           <div className="orders__total">
@@ -70,7 +70,7 @@ const DashboardPage = () => {
             />
             <div>
               <h3>Foydalanuvchilar</h3>
-              <h1>83745</h1>
+              <h1>35</h1>
             </div>
           </div>
           <div className="orders__total">
@@ -82,7 +82,7 @@ const DashboardPage = () => {
             />
             <div>
               <h3>Mahsulotlar</h3>
-              <h1>{/* {data?.length} */}</h1>
+              <h1>186</h1>
             </div>
           </div>
         </div>

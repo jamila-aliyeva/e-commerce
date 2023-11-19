@@ -86,7 +86,6 @@ const CartList = () => {
         comment: comments,
       };
       await request.post("payment", order);
-      console.log(cart);
       localStorage.removeItem("CART");
       router.push("/");
       toast.success("Buyurtamngiz qabul qilindi!");
@@ -161,7 +160,7 @@ const CartList = () => {
         </TableContainer>
       </div>
       <div className="table__bside">
-        <div>
+        <div className="table__price">
           <p>
             Umumiy Summa: <strong>{totalPrice}</strong> ${" "}
           </p>

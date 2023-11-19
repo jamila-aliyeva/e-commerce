@@ -2,8 +2,10 @@ import axios from "axios";
 
 let headers = {};
 
+const isBrowser = typeof window !== "undefined";
+
 if (typeof window !== "undefined") {
-  const token = window.localStorage.getItem("token");
+  const token = isBrowser && window.localStorage.getItem("token");
   if (token) {
     headers = {
       Authorization: `Bearer ${token}`,

@@ -98,7 +98,7 @@ const ProductsPage = () => {
     getProducts();
   }, [setCategories, setProducts, page, search, category]);
 
-  const controlPages = (event: React.ChangeEvent<unknown>, value: number) => {
+  const controlPages = (e: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     console.log(value);
   };
