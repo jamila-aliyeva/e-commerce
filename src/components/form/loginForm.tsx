@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const LoginForm = async () => {
+function LoginForm() {
   const router = useRouter();
   const { setIsAuthenticated } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -78,6 +78,6 @@ const LoginForm = async () => {
       </div>
     </section>
   );
-};
+}
 
 export default LoginForm;

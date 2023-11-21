@@ -1,5 +1,8 @@
+"use client";
+
+import { useEffect } from "react";
 import User from "@/types/user";
-import { create } from "zustand";
+import create from "zustand";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -7,11 +10,7 @@ interface AuthState {
   setIsAuthenticated: (user: User) => void;
 }
 
-const userJson = window.localStorage.getItem("user");
-
-const user = userJson ? JSON.parse(userJson) : null;
-
-const useAuth = create<AuthState>()((set, get) => {
+const useAuth = create<AuthState>((set, get) => {
   const isBrowser = typeof window !== "undefined";
 
   const userJson = isBrowser ? window.localStorage.getItem("user") : null;
@@ -26,5 +25,16 @@ const useAuth = create<AuthState>()((set, get) => {
     },
   };
 });
+
+export const useSyncWithLocalStorage = () => {
+  const { user, isAuthenticated } = useAuth((state) => state);
+
+  useEffect(() => {
+    if (user !== null) {
+      window.localStorage.setItem("user", JSON.stringify(user));
+    }
+    window.localStorage.setItem("token", isAuthenticated ? "tokenValue" : "");
+  }, []);
+};
 
 export default useAuth;

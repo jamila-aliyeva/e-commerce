@@ -22,7 +22,6 @@ const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [update, setUpdate] = useState(false);
 
-
   const [statusFilter, setStatusFilter] = useState("");
 
   const deleteOrder = async (id: string) => {
